@@ -1,0 +1,6 @@
+[
+  { "title": "Prelim", "description": "Preliminary work to the project - sales, liason, setup", "state": "open", "due_on": "" },
+  { "title": "Define", "description": "Define Stage - scoping, research", "state": "open", "due_on": "" },
+  { "title": "Develop", "description": "Develop Stage - Models, Textures, Code", "state": "open", "due_on": "" },
+  { "title": "Deliver", "description": "Deliver Stage - Deployment, Renders, Demos", "state": "open", "due_on": "" }
+]

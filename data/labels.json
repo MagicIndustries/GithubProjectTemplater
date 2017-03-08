@@ -10,6 +10,7 @@
   { "name": "Status: Review Needed", "color": "FBCA04" },
   { "name": "Status: Revision Needed", "color": "E11D21" },
 
+  { "name": "Type: Task", "color": "009800" },
   { "name": "Type: Bug", "color": "E11D21" },
   { "name": "Type: Enhancement", "color": "84B6EB" },
   { "name": "Type: Maintenance", "color": "FBCA04" },
@@ -18,5 +19,11 @@
   { "name": "Priority: Critical", "color": "E11D21" },
   { "name": "Priority: High", "color": "EB6420" },
   { "name": "Priority: Low", "color": "009800" },
-  { "name": "Priority: Medium", "color": "FBCA04" }
+  { "name": "Priority: Medium", "color": "FBCA04" },
+
+  { "name": "Work: Research", "color": "E11D21" },
+  { "name": "Work: Development", "color": "3A2F8E" },
+  { "name": "Work: Modeling", "color": "009800" },
+  { "name": "Work: Texturing", "color": "FBCA04" },
+  { "name": "Work: Admin", "color": "878787" }
 ]
