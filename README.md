@@ -2,6 +2,8 @@
 
 Allows setup of a new repo with issues, labels and milestones cleared out and set from json files.
 
+Relies on https://github.com/mikedeboer/node-github by @mikedeboer
+
 ## Installation
 ```bash
 $ git clone git@github.com:MagicIndustries/projecttemplater
