@@ -2,7 +2,6 @@ var GitHubAPI = require('github');
 var labels = require('../data/labels.json');
 var issues = require('../data/issues.json');
 var milestones = require('../data/milestones.json');
-var apiDelay = 1000;
 
 var repoOwner = 'LithodomosVR';
 var repoName = "testproject";
@@ -30,10 +29,12 @@ gh.issues.getLabels({
   repo: repoName,
   per_page: 100
 }).then(function (_labels) {
-  console.log('blah00')
+
   var deletePromises = [];
+
+  // loop over the existing labels
   _labels.data.forEach(function (item) {
-    console.log('blah01')
+    // delete the label
     deletePromises.push(
       gh.issues.deleteLabel({
         owner: repoOwner,
@@ -43,15 +44,16 @@ gh.issues.getLabels({
         console.log('Error: ', error);
       }));
   });
+
+  // When the labels are all deleted, move on
   Promise.all(deletePromises).then(function () {
-    console.log('blah02')
     var labelPromises = [];
+
+    // loop over the labels to be added
     labels.forEach(function (item) {
-      console.log('blah03')
+      // closure for reducer execution
       var func = function (_item) {
-        console.log('blah04')
         return function () {
-          console.log(_item)
           return gh.issues.createLabel({
             owner: repoOwner,
             repo: repoName,
@@ -64,6 +66,9 @@ gh.issues.getLabels({
       }(item);
       labelPromises.push(func);
     });
+
+    // reduce through the promises ensuring we do one at a time,
+    // to avoid the bounce issues on github api
     var labelPromise = labelPromises.reduce(function (promise, thing) {
       return promise.then(function(result) {
         return thing().then(function (result) {
@@ -72,17 +77,21 @@ gh.issues.getLabels({
       });
     }, Promise.resolve())
 
+    // When all the labels are uploaded...
     labelPromise.then(function () {
-      console.log('blah1')
+
+      // grab any current milestones
       gh.issues.getMilestones({
         owner: repoOwner,
         repo: repoName,
         per_page: 100
       }).then(function (_milestones) {
-        console.log('blah2')
+
         var deleteMSPromises = [];
+
+        // loop over the existing milestones
         _milestones.data.forEach(function (milestone) {
-          console.log('blah3')
+          // delete the milestone
           deleteMSPromises.push(
             gh.issues.deleteMilestone({
               owner: repoOwner,
@@ -91,14 +100,15 @@ gh.issues.getLabels({
             })
           )
         });
+
+        // When all the milestones are deleted...
         Promise.all(deleteMSPromises).then(function (result) {
-          console.log('blah4')
           var milestonePromises = [];
+          // loop over the milestones to be created
           milestones.forEach(function (item) {
-            console.log('blah5')
+            // closure for reducer execution
             var func = function (_item) {
               return function () {
-                console.log(_item)
                 return gh.issues.createMilestone({
                   owner: repoOwner,
                   repo: repoName,
@@ -115,6 +125,9 @@ gh.issues.getLabels({
             }(item);
             milestonePromises.push(func);
           });
+
+          // reduce through the promises ensuring we do one at a time,
+          // to avoid the bounce issues on github api
           var milestonePromise = milestonePromises.reduce(function (promise, thing) {
             return promise.then(function(result) {
               return thing().then(function (result) {
@@ -123,14 +136,17 @@ gh.issues.getLabels({
             });
           }, Promise.resolve());
 
+          // When all the milestones are uploaded
           milestonePromise.then(function () {
-            console.log('blah4')
+
             var issuePromises = [];
+
+            // loop over the issues to be created
             issues.forEach(function (item) {
-              console.log('blah5')
+              // closure for reducer execution
               var func = function (_item) {
+                // create the issue
                 return function () {
-                  console.log(_item)
                   return gh.issues.create({
                     owner: repoOwner,
                     repo: repoName,
@@ -146,7 +162,10 @@ gh.issues.getLabels({
                 }
               }(item);
               issuePromises.push(func)
-            })
+            });
+
+            // reduce through the promises ensuring we do one at a time,
+            // to avoid the bounce issues on github api
             var issuePromise = issuePromises.reduce(function (promise, thing) {
               return promise.then(function(result) {
                 return thing().then(function (result) {
@@ -155,6 +174,7 @@ gh.issues.getLabels({
               });
             }, Promise.resolve());
 
+            // when all the issues are uploaded...
             issuePromise.then(function () {
 
             });
@@ -165,18 +185,3 @@ gh.issues.getLabels({
     });
   });
 });
-
-
-
-
-// // loop over the preset issues
-// for (var i=0; i<issues.length; i++) {
-//   // use a closure because we're async
-//   var func = function (item) {
-//     // one per second to ensure the api rate limit doesn't kill us
-//     setInterval(function () {
-//       // create the issue
-//       gh.issues.create(item);
-//     }, apiDelay);
-//   }(issues[i]);
-// }
