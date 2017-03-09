@@ -1,8 +1,10 @@
 # Github Project Templater
 
-Allows setup of a new repo with issues, labels and milestones cleared out and set from json files.
+Allows setup of a new repo with issues, labels and milestones cleared out and set in bulk from JSON files.
 
 Relies on https://github.com/mikedeboer/node-github by @mikedeboer
+
+Labels taken from https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63#.tiji9ry0r
 
 ## Installation
 ```bash
