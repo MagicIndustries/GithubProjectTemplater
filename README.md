@@ -11,7 +11,11 @@ $ npm install
 
 ## Configuration
 - edit the config in /config/index.js
-- edit the files to enter your own preset list of issues, labels and milestones:
+
+You will need a personal access token, which can be generated in your GitHub account setting area. Put this in as config.oAuthToken
+
+- edit the jsonfiles to enter your own preset list of issues, labels and milestones:
+
   - /data/issues.json
   - /data/labels.json
   - /data/milestones.json
