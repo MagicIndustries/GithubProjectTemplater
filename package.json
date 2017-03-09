@@ -1,0 +1,28 @@
+{
+  "name": "projecttemplater",
+  "version": "1.0.0",
+  "description": "Github Project Templater - cleans the repo and installs labels, milestones and issues from JSON",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagicIndustries/GitHubProjectTemplater.git"
+  },
+  "keywords": [
+    "github",
+    "project",
+    "template"
+  ],
+  "author": "Toby Tremayne <toby@magicindustries.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MagicIndustries/GitHubProjectTemplater/issues"
+  },
+  "homepage": "https://github.com/MagicIndustries/GitHubProjectTemplater#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "github": "^9.1.0"
+  }
+}
